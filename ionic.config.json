@@ -1,0 +1,8 @@
+{
+  "name": "technical-abata",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular",
+  "id": "2dad42c7"
+}
