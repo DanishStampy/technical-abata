@@ -11,37 +11,111 @@
     </ion-toolbar>
   </ion-header>
 
-  <div class="h-full bg-slate-100 pt-[3rem]">
-    <div class="p-[3rem] m-[3rem] mt-0 bg-slate-600">
-      <ion-grid>
-        <ion-row>
+  <div class=" bg-slate-100 py-[3rem]">
+
+    <div class="p-[2rem] mx-[4.2rem] my-0 bg-white rounded-lg shadow-[rgba(13,_38,_76,_0.19)_0px_9px_20px]">
+      <div class="flex flex-col">
+        <div class="flex items-center gap-2 mb-3">
+          <label class="tracking-wide font-base">Search by:</label>
+          <div class="relative flex items-center justify-center gap-1 p-2 bg-green-200 rounded-lg cursor-pointer"
+            (click)="onOpenDropwdown()">
+            <p class="text-xs font-semibold tracking-wide text-green-700 uppercase">{{ catSearchAttr }}</p>
+            <ion-icon name="caret-down" class="text-green-700"></ion-icon>
+
+            <div
+              class="rounded-lg bg-white  shadow-[rgba(13,_38,_76,_0.19)_0px_9px_20px] absolute top-[2.5rem] left-0 w-[10rem] z-10 transition-all font-semibold text-xs tracking-wide uppercase {{ isOpen ? 'block' : 'hidden' }}">
+              <p (click)="onSetSearchAttr('breed')" class="p-2 tracking-wide transition-all hover:bg-slate-300">Breed
+              </p>
+              <p (click)="onSetSearchAttr('country')" class="p-2 tracking-wide transition-all hover:bg-slate-300">
+                Country</p>
+              <p (click)="onSetSearchAttr('coat')" class="p-2 tracking-wide transition-all hover:bg-slate-300">Coat</p>
+              <p (click)="onSetSearchAttr('origin')" class="p-2 tracking-wide transition-all hover:bg-slate-300">Origin
+              </p>
+              <p (click)="onSetSearchAttr('pattern')" class="p-2 tracking-wide transition-all hover:bg-slate-300">
+                Pattern</p>
+            </div>
+          </div>
+        </div>
+        <div class="flex items-center justify-center">
+          <div class="px-4 py-2 font-bold border border-r-0 border-blue-200 rounded-l-lg bg-slate-100">
+            <ion-icon name="search"></ion-icon>
+          </div>
+          <input [(ngModel)]="searchQuery" type="search" name="search" placeholder="Search"
+            class="w-full transition-all border-l-0 border-blue-200 focus:border-3 focus:border-blue-200 bg-slate-50"
+            (keyup.enter)="onClickSearch()" />
+          <div class="px-4 py-2 font-bold text-white bg-blue-800 border border-blue-800 rounded-r-lg cursor-pointer"
+            (click)="onClickSearch()">
+            <ion-icon name="search"></ion-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="m-[4rem] my-[2rem]">
+      <ion-grid class="p-0 shadow-[rgba(13,_38,_76,_0.19)_0px_9px_20px] rounded-lg">
+        <ion-row
+          class="p-4 text-sm font-semibold tracking-wide uppercase bg-blue-300 border-0 border-b-2 border-blue-800 rounded-t-lg ps-0 text-slate-800">
+          <ion-col class="max-w-[5rem] w-full text-center">Bil.</ion-col>
           <ion-col class="">Breed</ion-col>
           <ion-col>Coat</ion-col>
           <ion-col>Country</ion-col>
           <ion-col>Origin</ion-col>
           <ion-col>Pattern</ion-col>
         </ion-row>
-        <ion-row>
-          <ion-col>1</ion-col>
-          <ion-col>2</ion-col>
-          <ion-col>3</ion-col>
-          <ion-col>4</ion-col>
-          <ion-col>5</ion-col>
+        <ion-row *ngFor="let cat of cats; index as i even as ev; odd as od; last as la"
+          class="p-4 ps-0 {{ ev ? 'bg-slate-200' : 'bg-white' }}">
+          <ion-col class="max-w-[5rem] w-full text-center ">{{ index + i }}</ion-col>
+          <ion-col class="line-clamp-1">{{ cat.breed ? cat.breed : 'Unknown' }}</ion-col>
+          <ion-col class="line-clamp-1">{{ cat.coat ? cat.coat : 'Unknown' }}</ion-col>
+          <ion-col class="line-clamp-1">{{ cat.country ? cat.country : 'Unknown' }}</ion-col>
+          <ion-col class="line-clamp-1">{{ cat.origin ? cat.origin : 'Unknown' }}</ion-col>
+          <ion-col class="line-clamp-1">{{ cat.pattern ? cat.pattern : 'Unknown' }}</ion-col>
         </ion-row>
-        <ion-row>
-          <ion-col>1</ion-col>
-          <ion-col>2</ion-col>
-          <ion-col>3</ion-col>
-          <ion-col>4</ion-col>
-          <ion-col>5</ion-col>
+
+        <!-- Pagination -->
+        <ion-row class="flex items-center justify-center p-4 rounded-b-lg bg-slate-50">
+          <div class="border border-r-0 border-blue-300 rounded-l-lg">
+            <button (click)="onPageChange(first_page)"
+              class="flex items-center justify-center p-4 transition-all rounded-l-lg text-slate-700 bg-slate-100 hover:bg-blue-300">
+              <ion-icon name="chevron-back"></ion-icon>
+              <ion-icon class="ms-[-0.5rem]" name="chevron-back"></ion-icon>
+
+            </button>
+          </div>
+          <div *ngFor="let link of links; first as previous; last as next"
+            class="border border-r-0 border-blue-300 border-y">
+            <button (click)="onPageChange(link.url)"
+              class="flex items-center justify-center {{ link.label==='Previous' || link.label==='Next' ? 'p-4' : 'p-3' }} transition-all border-2  text-slate-700 border-slate-800 hover:bg-blue-300 disabled:bg-blue-200 disabled:text-slate-400  {{ link.active ? 'bg-blue-300' : 'bg-slate-100' }}"
+              [disabled]="link.url===null">
+
+              <div *ngIf="link.label==='Previous'; then previousBlock else elseBlock"></div>
+              <ng-template #previousBlock>
+                <ion-icon name="chevron-back"></ion-icon>
+              </ng-template>
+
+              <ng-template #elseBlock>
+                <div *ngIf="link.label==='Next'; then nextBlock else defaultBlock"></div>
+
+                <ng-template #nextBlock>
+                  <ion-icon name="chevron-forward"></ion-icon>
+                </ng-template>
+
+                <ng-template #defaultBlock>
+                  {{ link.label }}
+                </ng-template>
+              </ng-template>
+
+            </button>
+          </div>
+          <div class="border border-blue-300 rounded-r-lg">
+            <button (click)="onPageChange(last_page)"
+              class="flex items-center justify-center p-4 transition-all border border-blue-300 rounded-r-lg text-slate-700 bg-slate-100 hover:bg-blue-300">
+              <ion-icon name="chevron-forward"></ion-icon>
+              <ion-icon class="ms-[-0.5rem]" name="chevron-forward"></ion-icon>
+            </button>
+          </div>
         </ion-row>
-        <ion-row>
-          <ion-col>1</ion-col>
-          <ion-col>2</ion-col>
-          <ion-col>3</ion-col>
-          <ion-col>4</ion-col>
-          <ion-col>5</ion-col>
-        </ion-row>
+
       </ion-grid>
     </div>
   </div>
