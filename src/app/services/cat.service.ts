@@ -18,10 +18,10 @@ export interface CatApi {
   results: any[];
   links: any;
   from: number;
-  first_page_url: string;
-  last_page_url: string;
+  to: number;
+  total: number;
+  last_page: number;
   total_pages: number;
-  total_results: number;
 }
 
 @Injectable({
@@ -31,9 +31,9 @@ export class CatService {
 
   constructor(private http: HttpClient) { }
 
-  getAllCat(url: string = `${environment.baseUrl}?limit=10`): Observable<CatApi> {
+  getAllCat(pageNumber: number = 1, limit: number = 10): Observable<CatApi> {
     return this.http.get<CatApi>(
-      `${url}`
+      `${environment.baseUrl}?limit=${limit}&page=${pageNumber}`
     )
   }
 }

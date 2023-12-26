@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-form',
@@ -7,9 +8,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FormPage implements OnInit {
 
-  constructor() { }
+  exampleForm: FormGroup;
 
-  ngOnInit() {
+  constructor(private formBuilder: FormBuilder) {
+
+    this.exampleForm = this.formBuilder.group({
+      normal: new FormControl('', Validators.required),
+      textarea: new FormControl('', Validators.required),
+      calendar: new FormControl('', Validators.required),
+      dropdown: new FormControl('', Validators.required)
+    });
+
+  }
+
+  ngOnInit(): void {
+    return
+  }
+
+  onSubmit() {
+    if (this.exampleForm.valid) {
+      this.exampleForm.reset();
+    }
   }
 
 }

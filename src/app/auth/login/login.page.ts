@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,15 +9,13 @@ import { Router } from '@angular/router';
 })
 export class LoginPage implements OnInit {
 
-  loginForm: any;
+  loginForm: FormGroup;
 
   constructor(
-    private router: Router
-  ) { }
-
-  ngOnInit(): void {
-
-    this.loginForm = new FormGroup({
+    private router: Router,
+    private formBuilder: FormBuilder
+  ) {
+    this.loginForm = this.formBuilder.group({
       email: new FormControl('', [
         Validators.required,
         Validators.email
@@ -26,13 +24,21 @@ export class LoginPage implements OnInit {
         Validators.required
       ])
     });
+
+  }
+
+  ngOnInit(): void {
+
+    return
   }
 
   onSubmit() {
     if (this.loginForm.valid) {
-      console.log(this.loginForm.value);
+      sessionStorage.setItem('email', this.loginForm.value.email);
+      sessionStorage.setItem('password', this.loginForm.value.password);
+
       this.loginForm.reset();
-      this.router.navigate(['/cat-list']);
+      this.router.navigate(['/dashboard/cat-list']);
     }
   }
 

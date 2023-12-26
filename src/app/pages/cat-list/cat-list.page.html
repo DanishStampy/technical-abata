@@ -1,6 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>cat-list</ion-title>
+    <ion-title>Table UI Challenge</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -13,6 +13,7 @@
 
   <div class=" bg-slate-100 py-[3rem]">
 
+    <!-- Search Bar -->
     <div class="p-[2rem] mx-[4.2rem] my-0 bg-white rounded-lg shadow-[rgba(13,_38,_76,_0.19)_0px_9px_20px]">
       <div class="flex flex-col">
         <div class="flex items-center gap-2 mb-3">
@@ -23,7 +24,7 @@
             <ion-icon name="caret-down" class="text-green-700"></ion-icon>
 
             <div
-              class="rounded-lg bg-white  shadow-[rgba(13,_38,_76,_0.19)_0px_9px_20px] absolute top-[2.5rem] left-0 w-[10rem] z-10 transition-all font-semibold text-xs tracking-wide uppercase {{ isOpen ? 'block' : 'hidden' }}">
+              class="rounded-lg bg-white  shadow-[rgba(13,_38,_76,_0.19)_0px_9px_20px] absolute top-[2.5rem] left-0 w-[10rem]  transition-all font-semibold text-xs tracking-wide uppercase {{ isOpen ? 'opacity-1 z-10' : 'opacity-0 -z-40' }}">
               <p (click)="onSetSearchAttr('breed')" class="p-2 tracking-wide transition-all hover:bg-slate-300">Breed
               </p>
               <p (click)="onSetSearchAttr('country')" class="p-2 tracking-wide transition-all hover:bg-slate-300">
@@ -51,7 +52,23 @@
       </div>
     </div>
 
-    <div class="m-[4rem] my-[2rem]">
+    <!-- Table  -->
+    <div class="m-[4rem] my-[2rem] relative rounded-lg">
+      <div *ngIf="isLoading"
+        class="absolute w-full bg-black opacity-[0.50] rounded-lg flex justify-center items-center h-full ">
+        <div role="status" class="">
+          <svg aria-hidden="true" class="w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
+            viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+              fill="currentColor" />
+            <path
+              d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+              fill="currentFill" />
+          </svg>
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
       <ion-grid class="p-0 shadow-[rgba(13,_38,_76,_0.19)_0px_9px_20px] rounded-lg">
         <ion-row
           class="p-4 text-sm font-semibold tracking-wide uppercase bg-blue-300 border-0 border-b-2 border-blue-800 rounded-t-lg ps-0 text-slate-800">
@@ -64,56 +81,94 @@
         </ion-row>
         <ion-row *ngFor="let cat of cats; index as i even as ev; odd as od; last as la"
           class="p-4 ps-0 {{ ev ? 'bg-slate-200' : 'bg-white' }}">
-          <ion-col class="max-w-[5rem] w-full text-center ">{{ index + i }}</ion-col>
-          <ion-col class="line-clamp-1">{{ cat.breed ? cat.breed : 'Unknown' }}</ion-col>
+          <ion-col class="max-w-[5rem] w-full text-center ">{{ from + i }}</ion-col>
+          <ion-col class="font-semibold line-clamp-1">{{ cat.breed ? cat.breed : 'Unknown' }}</ion-col>
           <ion-col class="line-clamp-1">{{ cat.coat ? cat.coat : 'Unknown' }}</ion-col>
           <ion-col class="line-clamp-1">{{ cat.country ? cat.country : 'Unknown' }}</ion-col>
-          <ion-col class="line-clamp-1">{{ cat.origin ? cat.origin : 'Unknown' }}</ion-col>
+          <ion-col class="line-clamp-1">
+            <span class="p-3 text-sm font-semibold text-green-600 capitalize bg-green-200 rounded-full -z-10">
+              {{ cat.origin ? cat.origin : 'Unknown' }}
+            </span>
+          </ion-col>
           <ion-col class="line-clamp-1">{{ cat.pattern ? cat.pattern : 'Unknown' }}</ion-col>
         </ion-row>
 
-        <!-- Pagination -->
-        <ion-row class="flex items-center justify-center p-4 rounded-b-lg bg-slate-50">
-          <div class="border border-r-0 border-blue-300 rounded-l-lg">
-            <button (click)="onPageChange(first_page)"
-              class="flex items-center justify-center p-4 transition-all rounded-l-lg text-slate-700 bg-slate-100 hover:bg-blue-300">
-              <ion-icon name="chevron-back"></ion-icon>
-              <ion-icon class="ms-[-0.5rem]" name="chevron-back"></ion-icon>
+        <!-- No result search -->
+        <ion-row *ngIf="cats.length === 0" class="flex justify-center w-full p-4">
+          <p class="font-semibold text-center">
+            No result of "{{ searchQuery }}"
+          </p>
+        </ion-row>
 
-            </button>
+        <!-- Footer Table -->
+        <ion-row *ngIf="searchQuery === '' && cats.length !== 0" class="flex items-center justify-between px-8 py-4 rounded-b-lg bg-slate-50">
+
+          <!-- Limit/Rows per page -->
+          <div class="flex items-center gap-1">
+            <p class="font-semibold tracking-wide">
+              Rows per page:
+            </p>
+            <div class="">
+              <select name="row" id="row" class="transition-all border border-blue-200 rounded-lg"
+                [(ngModel)]="numOfRow" (ngModelChange)="setLimitRow($event)">
+                <option value="5">5</option>
+                <option value="10" selected>10</option>
+                <option value="15">15</option>
+                <option value="20">20</option>
+                <option value="25">25</option>
+              </select>
+            </div>
           </div>
-          <div *ngFor="let link of links; first as previous; last as next"
-            class="border border-r-0 border-blue-300 border-y">
-            <button (click)="onPageChange(link.url)"
-              class="flex items-center justify-center {{ link.label==='Previous' || link.label==='Next' ? 'p-4' : 'p-3' }} transition-all border-2  text-slate-700 border-slate-800 hover:bg-blue-300 disabled:bg-blue-200 disabled:text-slate-400  {{ link.active ? 'bg-blue-300' : 'bg-slate-100' }}"
-              [disabled]="link.url===null">
 
-              <div *ngIf="link.label==='Previous'; then previousBlock else elseBlock"></div>
-              <ng-template #previousBlock>
+          <!-- Pagination -->
+          <div class="flex items-center justify-center">
+            <div class="border border-r-0 border-blue-300 rounded-l-lg">
+              <button (click)="onPageChange(1)"
+                class="flex items-center justify-center p-4 transition-all rounded-l-lg text-slate-700 bg-slate-100 hover:bg-blue-300">
                 <ion-icon name="chevron-back"></ion-icon>
-              </ng-template>
+                <ion-icon class="ms-[-0.5rem]" name="chevron-back"></ion-icon>
 
-              <ng-template #elseBlock>
-                <div *ngIf="link.label==='Next'; then nextBlock else defaultBlock"></div>
+              </button>
+            </div>
+            <div *ngFor="let link of links; first as previous; last as next"
+              class="border border-r-0 border-blue-300 border-y">
+              <button (click)="onCheckLinkLabel(link.label)"
+                class="flex items-center justify-center {{ link.label==='Previous' || link.label==='Next' ? 'p-4' : 'p-3' }} transition-all border-2  text-slate-700 border-slate-800 hover:bg-blue-300 disabled:bg-blue-200 disabled:text-slate-400  {{ link.active ? 'bg-blue-300' : 'bg-slate-100' }}"
+                [disabled]="link.url===null">
 
-                <ng-template #nextBlock>
-                  <ion-icon name="chevron-forward"></ion-icon>
+                <div *ngIf="link.label==='Previous'; then previousBlock else elseBlock"></div>
+                <ng-template #previousBlock>
+                  <ion-icon name="chevron-back"></ion-icon>
                 </ng-template>
 
-                <ng-template #defaultBlock>
-                  {{ link.label }}
-                </ng-template>
-              </ng-template>
+                <ng-template #elseBlock>
+                  <div *ngIf="link.label==='Next'; then nextBlock else defaultBlock"></div>
 
-            </button>
+                  <ng-template #nextBlock>
+                    <ion-icon name="chevron-forward"></ion-icon>
+                  </ng-template>
+
+                  <ng-template #defaultBlock>
+                    {{ link.label }}
+                  </ng-template>
+                </ng-template>
+
+              </button>
+            </div>
+            <div class="border border-blue-300 rounded-r-lg">
+              <button (click)="onPageChange(last_page)"
+                class="flex items-center justify-center p-4 transition-all border border-blue-300 rounded-r-lg text-slate-700 bg-slate-100 hover:bg-blue-300">
+                <ion-icon name="chevron-forward"></ion-icon>
+                <ion-icon class="ms-[-0.5rem]" name="chevron-forward"></ion-icon>
+              </button>
+            </div>
           </div>
-          <div class="border border-blue-300 rounded-r-lg">
-            <button (click)="onPageChange(last_page)"
-              class="flex items-center justify-center p-4 transition-all border border-blue-300 rounded-r-lg text-slate-700 bg-slate-100 hover:bg-blue-300">
-              <ion-icon name="chevron-forward"></ion-icon>
-              <ion-icon class="ms-[-0.5rem]" name="chevron-forward"></ion-icon>
-            </button>
+
+          <!-- show result -->
+          <div class="font-semibold tracking-wide">
+            <p>Showing {{ from }}-{{ to }} of {{ total }}</p>
           </div>
+
         </ion-row>
 
       </ion-grid>

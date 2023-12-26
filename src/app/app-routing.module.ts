@@ -8,21 +8,14 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'folder/:id',
-    loadChildren: () => import('./folder/folder.module').then( m => m.FolderPageModule)
-  },
-  {
     path: 'login',
     loadChildren: () => import('./auth/login/login.module').then( m => m.LoginPageModule)
   },
   {
-    path: 'cat-list',
-    loadChildren: () => import('./pages/cat-list/cat-list.module').then( m => m.CatListPageModule)
-  },
-  {
-    path: 'form',
-    loadChildren: () => import('./pages/form/form.module').then( m => m.FormPageModule)
+    path: 'dashboard',
+    loadChildren: () => import('./layout/base/base.module').then( m => m.BasePageModule)
   }
+
 
 ];
 

@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
 
 @NgModule({
   declarations: [AppComponent],
@@ -17,7 +18,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SidebarComponent
   ],
   providers: [
     {

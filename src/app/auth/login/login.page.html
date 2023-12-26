@@ -11,59 +11,69 @@
     </ion-toolbar>
   </ion-header>
 
-  <div class="flex items-center justify-center h-full bg-slate-100">
-    <div
-      class="border border-slate-200 p-[3rem]  rounded-lg shadow-[0px_0px_0px_1px_rgba(0,0,0,0.06),0px_1px_1px_-0.5px_rgba(0,0,0,0.06),0px_3px_3px_-1.5px_rgba(0,0,0,0.06),_0px_6px_6px_-3px_rgba(0,0,0,0.06),0px_12px_12px_-6px_rgba(0,0,0,0.06),0px_24px_24px_-12px_rgba(0,0,0,0.06)] w-full mx-[20rem] bg-white">
-      <h2 class="text-2xl font-semibold tracking-normal mb-[2rem]">Sign in to your account</h2>
-      <form [formGroup]="loginForm" (submit)="onSubmit()" class="flex flex-col justify-center gap-1">
+  <div class="grid items-center justify-center w-full h-full grid-cols-3 bg-slate-100">
+    <div class="h-full col-span-2">
+      <img class="object-cover w-full h-full"
+        src="https://img.freepik.com/free-vector/modern-triangle-pattern-blue-geometric-background_1035-23063.jpg?w=900&t=st=1703612956~exp=1703613556~hmac=324ee50e511f34c894bd2ae3b2290a4adbb2e9f07a9b239d523b01c02c35bf50"
+        alt="">
+    </div>
+    <div class="h-full  p-[3rem] bg-white flex justify-center items-center">
+      <div class="w-full">
+        <h2 class="mb-1 text-3xl font-semibold tracking-normal">Coding Challenge</h2>
+        <p class="mb-[2rem] text-sm font-semibold tracking-wide text-slate-600">Sign in to your account</p>
+        <form [formGroup]="loginForm" (submit)="onSubmit()" class="flex flex-col justify-center gap-1">
 
-        <div class="mb-5">
-          <label for="email" class="mb-1 tracking-wide">Email Address</label>
-          <div class="flex items-center ">
-            <div
-              class="flex items-center justify-center px-4 py-3 font-bold border border-r-0 border-blue-200 rounded-l-lg bg-slate-100">
-              <ion-icon name="at"></ion-icon>
+          <div class="mb-5">
+            <label for="email" class="mb-1 tracking-wide">Email Address</label>
+            <div class="flex items-center mt-1 ">
+              <div
+                class="flex items-center justify-center px-4 py-3 font-bold border border-r-0 border-blue-200 rounded-l-lg bg-slate-100">
+                <ion-icon name="at"></ion-icon>
+              </div>
+              <input id="email" type="email" formControlName="email"
+                class="w-full transition-all border-l-0 border-blue-200 rounded-md rounded-l-none focus:border-3 focus:border-blue-200" />
             </div>
-            <input id="email" type="email" formControlName="email"
-              class="w-full transition-all border-l-0 border-blue-200 rounded-md rounded-l-none focus:border-3 focus:border-blue-200" />
-          </div>
-          <div *ngIf="
-            loginForm.controls['email'].invalid &&
-            loginForm.controls['email'].touched &&
-            loginForm.controls['email'].errors">
-            <div *ngIf="loginForm.controls['email'].errors['email']" class="mt-1 text-xs tracking-wide text-red-700">Please
-              enter a valid email address.</div>
-            <div *ngIf="loginForm.controls['email'].errors['required']" class="mt-1 text-xs tracking-wide text-red-700">
-              Email
-              field are required.</div>
-          </div>
-
-        </div>
-
-        <div class="mb-5">
-          <label for="password" class="mb-1 tracking-wide">Password</label>
-          <div class="flex items-center">
-            <div
-              class="flex items-center justify-center px-4 py-3 font-bold border border-r-0 border-blue-200 rounded-l-lg bg-slate-100">
-              <ion-icon name="lock-closed"></ion-icon>
+            <div *ngIf="
+              loginForm.controls['email'].invalid &&
+              loginForm.controls['email'].touched &&
+              loginForm.controls['email'].errors">
+              <div *ngIf="loginForm.controls['email'].errors['email']" class="mt-1 text-xs tracking-wide text-red-700">
+                Please
+                enter a valid email address.</div>
+              <div *ngIf="loginForm.controls['email'].errors['required']"
+                class="mt-1 text-xs tracking-wide text-red-700">
+                Email
+                field are required.</div>
             </div>
-            <input id="password" type="password" formControlName="password"
-              class="w-full transition-all border-l-0 border-blue-200 rounded-md rounded-l-none focus:border-3 focus:border-blue-200" />
-          </div>
-          <div *ngIf="
-            loginForm.controls['password'].invalid &&
-            loginForm.controls['password'].touched &&
-            loginForm.controls['password'].errors">
-            <div *ngIf="loginForm.controls['password'].errors['required']" class="mt-1 text-xs tracking-wide text-red-700">
-              Password field are required.</div>
-          </div>
-        </div>
 
-        <button type="submit" [disabled]="!loginForm.valid"
-          class="w-full text-center bg-blue-700 p-3 rounded-lg text-white font-bold hover:shadow-[rgba(13,_38,_76,_0.19)_0px_9px_20px] transition-all cursor-pointer disabled:bg-blue-900 disabled:text-slate-500 disabled:cursor-not-allowed hover:text-slate-100 hover:bg-blue-800">Login</button>
-      </form>
-      <p class="text-slate-600 mt-[2rem]">Don't have account yet? <span class="text-blue-700 hover:underline">Click
-          here!</span> </p>
+          </div>
+
+          <div class="mb-5">
+            <label for="password" class="mb-1 tracking-wide">Password</label>
+            <div class="flex items-center mt-1">
+              <div
+                class="flex items-center justify-center px-4 py-3 font-bold border border-r-0 border-blue-200 rounded-l-lg bg-slate-100">
+                <ion-icon name="lock-closed"></ion-icon>
+              </div>
+              <input id="password" type="password" formControlName="password"
+                class="w-full transition-all border-l-0 border-blue-200 rounded-md rounded-l-none focus:border-3 focus:border-blue-200" />
+            </div>
+            <div *ngIf="
+              loginForm.controls['password'].invalid &&
+              loginForm.controls['password'].touched &&
+              loginForm.controls['password'].errors">
+              <div *ngIf="loginForm.controls['password'].errors['required']"
+                class="mt-1 text-xs tracking-wide text-red-700">
+                Password field are required.</div>
+            </div>
+          </div>
+
+          <button type="submit" [disabled]="!loginForm.valid"
+            class="w-full text-center bg-blue-700 p-3 rounded-lg text-white font-bold hover:shadow-[rgba(13,_38,_76,_0.19)_0px_9px_20px] transition-all cursor-pointer disabled:bg-blue-900 disabled:text-slate-500 disabled:cursor-not-allowed hover:text-slate-100 hover:bg-blue-800">Login</button>
+        </form>
+        <p class="text-slate-600 mt-[2rem]">Don't have account yet? <span class="text-blue-700 hover:underline">Click
+            here!</span> </p>
+      </div>
     </div>
   </div>
 

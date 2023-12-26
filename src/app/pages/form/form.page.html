@@ -1,6 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>form</ion-title>
+    <ion-title>Form UI Challenge</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -11,53 +11,142 @@
     </ion-toolbar>
   </ion-header>
 
-  <div class="flex items-center justify-center h-full bg-slate-100">
-    <div
-      class="border border-slate-200 p-[3rem]  rounded-lg shadow-[0px_0px_0px_1px_rgba(0,0,0,0.06),0px_1px_1px_-0.5px_rgba(0,0,0,0.06),0px_3px_3px_-1.5px_rgba(0,0,0,0.06),_0px_6px_6px_-3px_rgba(0,0,0,0.06),0px_12px_12px_-6px_rgba(0,0,0,0.06),0px_24px_24px_-12px_rgba(0,0,0,0.06)] w-full mx-[20rem] bg-white">
-      <h2 class="text-2xl font-semibold tracking-normal mb-[2rem]">Sign in to your account</h2>
-      <form  class="flex flex-col justify-center gap-1">
+  <div class="flex items-start gap-[3rem]  w-full bg-slate-100 p-[3rem]">
 
-        <div class="mb-5">
-          <label for="email" class="mb-1 tracking-wide">Email Address</label>
-          <div class="flex items-center ">
-            <div
-              class="flex items-center justify-center px-4 py-3 font-bold border border-r-0 border-blue-200 rounded-l-lg bg-slate-100">
-              <ion-icon name="at"></ion-icon>
-            </div>
-            <input id="email" type="email" formControlName="email"
-              class="w-full transition-all border-l-0 border-blue-200 rounded-md rounded-l-none focus:border-3 focus:border-blue-200" />
-          </div>
-          <div >
-            <div  class="mt-1 text-xs tracking-wide text-red-700">Please
-              enter a valid email address.</div>
-            <div  class="mt-1 text-xs tracking-wide text-red-700">
-              Email
-              field are required.</div>
-          </div>
-
+    <!-- Intern Details -->
+    <div class="flex flex-col items-center  shadow-[0_8px_30px_rgb(0,0,0,0.12)] bg-white rounded-xl">
+      <!-- Header -->
+      <div class="flex items-center w-full gap-3 py-3 bg-orange-500 ps-5 rounded-t-xl">
+        <div class="flex items-center justify-center p-1 text-orange-500 bg-white rounded-full w-7 h-7">
+          <ion-icon name="business"></ion-icon>
+        </div>
+        <h2 class="font-semibold tracking-wide text-white">Candidate Details</h2>
+      </div>
+      <!-- Body -->
+      <div class="flex flex-col p-5 bg-white rounded-b-xl gap-[1rem] items-start grow ">
+        <div class="font-semibold">
+          <p class="text-xs tracking-wide text-slate-500">Name</p>
+          <p class="antialiased tracking-wide text-black">Danish Irfan Shah bin Muzaffar Shah</p>
         </div>
 
-        <div class="mb-5">
-          <label for="password" class="mb-1 tracking-wide">Password</label>
-          <div class="flex items-center">
-            <div
-              class="flex items-center justify-center px-4 py-3 font-bold border border-r-0 border-blue-200 rounded-l-lg bg-slate-100">
-              <ion-icon name="lock-closed"></ion-icon>
-            </div>
-            <input id="password" type="password" formControlName="password"
-              class="w-full transition-all border-l-0 border-blue-200 rounded-md rounded-l-none focus:border-3 focus:border-blue-200" />
+        <div class="font-semibold">
+          <p class="text-xs tracking-wide text-slate-500">Internship Period</p>
+          <p class="tracking-wide text-black">1 January 2023 - 30 June 2023</p>
+        </div>
+
+        <div class="font-semibold">
+          <p class="text-xs tracking-wide text-slate-500">Education Center</p>
+          <p class="tracking-wide text-black">Universiti Kebangsaan Malaysia</p>
+        </div>
+
+        <div class="flex items-center gap-[3rem]">
+          <div class="font-semibold">
+            <p class="text-xs tracking-wide text-slate-500">Course</p>
+            <p class="tracking-wide text-black">Software Engineering </p>
           </div>
-          <div >
-            <div  class="mt-1 text-xs tracking-wide text-red-700">
-              Password field are required.</div>
+          <div class="font-semibold">
+            <p class="text-xs tracking-wide text-slate-500">Years of studies</p>
+            <p class="tracking-wide text-black">4 years</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Form Details -->
+    <div class="p-7 flex items-start justify-between gap-[4rem] bg-white rounded-lg shadow-[0_8px_30px_rgb(0,0,0,0.12)] grow">
+      <!-- Info -->
+      <div class="">
+        <div class="flex items-center justify-between mb-[1rem]">
+          <h1 class="text-xl font-semibold tracking-wide">Form Examples</h1>
+          <ion-icon class="text-2xl text-slate-400" name="information-circle"></ion-icon>
+        </div>
+        <p class="font-semibold tracking-wide text-slate-500">Examples of form input and their validations</p>
+      </div>
+
+      <!-- Form -->
+      <form [formGroup]="exampleForm" (submit)="onSubmit()" class="w-full">
+        <div class="mb-[1rem]">
+          <label for="normal" class="mb-3 font-semibold tracking-wide text-slate-800">Normal Label<span
+              class="font-bold text-red-600 ms-1">*</span></label>
+          <input type="text" name="normal" id="normal" placeholder="This is a normal input" formControlName="normal"
+            class="w-full mt-2 font-semibold transition-all bg-blue-200 border-blue-200 rounded-lg focus:border-3 focus:border-blue-200" />
+
+          <div *ngIf="
+            exampleForm.controls['normal'].invalid &&
+            exampleForm.controls['normal'].touched &&
+            exampleForm.controls['normal'].errors">
+            <div *ngIf="exampleForm.controls['normal'].errors['required']"
+              class="mt-1 text-xs tracking-wide text-red-700">
+              Normal field are required.
+            </div>
           </div>
         </div>
 
-        <button type="submit" 
-          class="w-full text-center bg-blue-700 p-3 rounded-lg text-white font-bold hover:shadow-[rgba(13,_38,_76,_0.19)_0px_9px_20px] transition-all cursor-pointer disabled:bg-blue-900 disabled:text-slate-500 disabled:cursor-not-allowed hover:text-slate-100 hover:bg-blue-800">Login</button>
+        <div class="mb-[1rem]">
+          <label for="text-area" class="mb-3 font-semibold tracking-wide text-slate-800">Text Area Label<span
+              class="font-bold text-red-600 ms-1">*</span></label>
+          <textarea name="text-area" id="text-area" placeholder="This is a text area input" formControlName="textarea"
+            class="w-full mt-2 font-semibold transition-all bg-blue-200 border-blue-200 rounded-lg focus:border-3 focus:border-blue-200"
+            rows="7"></textarea>
+
+          <div *ngIf="
+            exampleForm.controls['textarea'].invalid &&
+            exampleForm.controls['textarea'].touched &&
+            exampleForm.controls['textarea'].errors">
+            <div *ngIf="exampleForm.controls['textarea'].errors['required']"
+              class="mt-1 text-xs tracking-wide text-red-700">
+              Text area field are required.
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-[1rem]">
+          <label for="calendar" class="mb-3 font-semibold tracking-wide text-slate-800">Calendar Label<span
+              class="font-bold text-red-600 ms-1">*</span></label>
+          <input type="date" name="calendar" id="calendar" formControlName="calendar"
+            class="w-full mt-2 font-semibold transition-all bg-blue-200 border-blue-200 rounded-lg focus:border-3 focus:border-blue-200 text-slate-500" />
+
+          <div *ngIf="
+            exampleForm.controls['calendar'].invalid &&
+            exampleForm.controls['calendar'].touched &&
+            exampleForm.controls['calendar'].errors">
+            <div *ngIf="exampleForm.controls['calendar'].errors['required']"
+              class="mt-1 text-xs tracking-wide text-red-700">
+              Calendar field are required.
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-[1rem]">
+          <label for="select" class="mb-3 font-semibold tracking-wide text-slate-800">Dropdown Label<span
+              class="font-bold text-red-600 ms-1">*</span></label>
+          <select name="select" id="select" formControlName="dropdown"
+            class="w-full mt-2 font-semibold transition-all bg-blue-200 border-blue-200 rounded-lg focus:border-3 focus:border-blue-200 text-slate-500">
+            <option class="tracking-wide text-slate-700" value="">Dropdown example</option>
+            <option class="tracking-wide text-slate-700" value="US">United States</option>
+            <option class="tracking-wide text-slate-700" value="CA">Canada</option>
+            <option class="tracking-wide text-slate-700" value="FR">France</option>
+            <option class="tracking-wide text-slate-700" value="DE">Germany</option>
+          </select>
+
+          <div *ngIf="
+          exampleForm.controls['dropdown'].invalid &&
+          exampleForm.controls['dropdown'].touched &&
+          exampleForm.controls['dropdown'].errors">
+            <div *ngIf="exampleForm.controls['dropdown'].errors['required']"
+              class="mt-1 text-xs tracking-wide text-red-700">
+              Dropdown field are required.
+            </div>
+          </div>
+        </div>
+
+        <div class="text-end">
+          <button type="submit" [disabled]="!exampleForm.valid"
+            class="mt-[0.5rem] text-center bg-green-700 p-3 rounded-lg text-white font-bold hover:shadow-[rgba(13,_38,_76,_0.19)_0px_9px_20px] transition-all cursor-pointer disabled:bg-green-900 disabled:text-slate-500 disabled:cursor-not-allowed hover:text-slate-100 hover:bg-green-800">
+            Submit
+          </button>
+        </div>
       </form>
-      <p class="text-slate-600 mt-[2rem]">Don't have account yet? <span class="text-blue-700 hover:underline">Click
-          here!</span> </p>
     </div>
   </div>
 
