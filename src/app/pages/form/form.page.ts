@@ -14,8 +14,8 @@ export class FormPage implements OnInit {
 
     this.exampleForm = this.formBuilder.group({
       normal: new FormControl('', Validators.required),
-      textarea: new FormControl('', Validators.required),
-      calendar: new FormControl('', Validators.required),
+      textarea: new FormControl(''),
+      calendar: new FormControl(''),
       dropdown: new FormControl('', Validators.required)
     });
 
